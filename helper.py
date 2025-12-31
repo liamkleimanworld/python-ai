@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import streamlit as st
-from pyexpat import model
+from google import genai
 
 all_models = ["gemini-3-flash",
               "gemini-2.5-flash",
@@ -19,7 +19,7 @@ def sendMessage(text,history):
     if 'client' not in st.session_state:
         createClient()
 
-    for models in all_models:
+    for model in all_models:
         client = st.session_state.client
         try:
             chat = client.chat(
