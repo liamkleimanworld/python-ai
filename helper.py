@@ -1,6 +1,32 @@
 from dotenv import load_dotenv
 import os
 import streamlit as st
+from pyexpat import model
+
+all_models = ["gemini-3-flash",
+              "gemini-2.5-flash",
+              "gemini-2.0-flash",
+              "gemini-2.5-flash-lite",
+              "gemini-2.0-flash-lite"]
+
+
+
+
+def createClient():
+    st.session_state.client = genai.client(api_key=loadAPIKey())
+
+def sendMessage(text,history):
+    if 'client' not in st.session_state:
+        createClient()
+
+    for models in all_models:
+        client = st.session_state.client
+        try:
+            chat = client.chat(
+                model = model
+            )
+        except:
+            print (f"{model} not working...")
 
 def loadAPIKey():
     load_dotenv()
