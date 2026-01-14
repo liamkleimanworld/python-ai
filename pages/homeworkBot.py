@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon="🤓"
 )
 
-st.title("homwork bot")
+st.title("homework bot")
 
 
 api_key = loadAPIKey()
@@ -20,3 +20,11 @@ user = st.chat_input("Write something…")
 #if there is a message
 if user:
     showMessage ("user",user)
+    save_to_history("homework","user",user)
+    history = st.session_state["homework"]["history"]
+    answer = sendMessage(user)
+    showMessage ("ai",answer)
+
+
+    save_to_history("homework","model",answer)
+
